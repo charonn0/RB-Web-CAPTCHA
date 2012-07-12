@@ -75,13 +75,13 @@ Begin WebContainer CaptchaContainer
       LockRight       =   False
       LockTop         =   True
       LockVertical    =   False
-      Noisiness       =   8
+      Noisiness       =   5
       Picture         =   1662390271
       ProtectImage    =   True
       Scope           =   0
       Style           =   "None"
       TabOrder        =   -1
-      TextSize        =   25
+      TextSize        =   35
       Top             =   0
       URL             =   ""
       VerticalCenter  =   0
@@ -179,7 +179,7 @@ Begin WebContainer CaptchaContainer
       LockRight       =   False
       LockTop         =   True
       LockVertical    =   False
-      Maximum         =   100
+      Maximum         =   10
       Minimum         =   0
       Scope           =   0
       Style           =   "None"
