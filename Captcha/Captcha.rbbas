@@ -4,12 +4,14 @@ Inherits WebImageView
 	#tag Event
 		Sub MouseEnter()
 		  Me.Cursor = System.WebCursors.FingerPointer
+		  RaiseEvent MouseEnter()
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseExit()
 		  Me.Cursor = System.WebCursors.StandardPointer
+		  RaiseEvent MouseExit()
 		End Sub
 	#tag EndEvent
 
@@ -19,6 +21,7 @@ Inherits WebImageView
 		  #pragma Unused Y
 		  #pragma Unused Details
 		  Me.Reload()
+		  RaiseEvent MouseUp()
 		End Sub
 	#tag EndEvent
 
@@ -26,6 +29,7 @@ Inherits WebImageView
 		Sub Open()
 		  If Buffer = Nil Then Buffer = New Picture(Me.Width, Me.Height, 24)
 		  Reload()
+		  RaiseEvent Open()
 		End Sub
 	#tag EndEvent
 
@@ -33,6 +37,7 @@ Inherits WebImageView
 		Sub Resized()
 		  Buffer = New Picture(Me.Width, Me.Height, 24)
 		  Reload()
+		  RaiseEvent Resized()
 		End Sub
 	#tag EndEvent
 
@@ -191,6 +196,27 @@ Inherits WebImageView
 		  Me.Picture = Buffer
 		End Sub
 	#tag EndMethod
+
+
+	#tag Hook, Flags = &h0
+		Event MouseEnter()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event MouseExit()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event MouseUp()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Open()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Resized()
+	#tag EndHook
 
 
 	#tag Note, Name = About this class
