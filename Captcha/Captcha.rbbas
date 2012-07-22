@@ -105,6 +105,15 @@ Inherits WebImageView
 	#tag Method, Flags = &h21
 		Private Function GenHint() As String
 		  Dim ret As String = challenge
+		  ret = ReplaceAll(ret, "20", "Twenty")
+		  ret = ReplaceAll(ret, "19", "Nineteen")
+		  ret = ReplaceAll(ret, "18", "Eighteen")
+		  ret = ReplaceAll(ret, "17", "Seventeen")
+		  ret = ReplaceAll(ret, "15", "Fifteen")
+		  ret = ReplaceAll(ret, "14", "Fourteen")
+		  ret = ReplaceAll(ret, "13", "Thirteen")
+		  ret = ReplaceAll(ret, "12", "Twelve")
+		  ret = ReplaceAll(ret, "11", "Eleven")
 		  ret = ReplaceAll(ret, "10", "Ten")
 		  ret = ReplaceAll(ret, "1", "One")
 		  ret = ReplaceAll(ret, "2", "Two ")
@@ -112,6 +121,7 @@ Inherits WebImageView
 		  ret = ReplaceAll(ret, "4", "Four ")
 		  ret = ReplaceAll(ret, "5", "Five ")
 		  ret = ReplaceAll(ret, "x", "Muliplied by ")
+		  ret = ReplaceAll(ret, "16", "Sixteen")
 		  ret = ReplaceAll(ret, "6", "Six ")
 		  ret = ReplaceAll(ret, "7", "Seven ")
 		  ret = ReplaceAll(ret, "8", "Eight ")
@@ -127,8 +137,8 @@ Inherits WebImageView
 	#tag Method, Flags = &h21
 		Private Sub Load()
 		  Dim x, y, action As Integer
-		  rand = New Random
-		  rand.Seed = Session.ClientTime.TotalSeconds
+		  If rand = Nil Then rand = New Random
+		  rand.RandomizeSeed
 		  
 		  x = Rand.InRange(0, 10)
 		  y = Rand.InRange(0, 10)
