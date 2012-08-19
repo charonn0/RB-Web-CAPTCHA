@@ -17,17 +17,13 @@ Inherits WebImageView
 
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer, Details As REALbasic.MouseEvent)
-		  #pragma Unused X
-		  #pragma Unused Y
-		  #pragma Unused Details
-		  Me.Reload()
-		  RaiseEvent MouseUp()
+		  Reload()
+		  RaiseEvent MouseUp(X, Y, Details)
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub Open()
-		  If Buffer = Nil Then Buffer = New Picture(Me.Width, Me.Height, 24)
 		  Reload()
 		  RaiseEvent Open()
 		End Sub
@@ -35,7 +31,6 @@ Inherits WebImageView
 
 	#tag Event
 		Sub Resized()
-		  Buffer = New Picture(Me.Width, Me.Height, 24)
 		  Reload()
 		  RaiseEvent Resized()
 		End Sub
@@ -56,12 +51,10 @@ Inherits WebImageView
 		  
 		  For x As Integer = 0 To Buffer.Width - 1 Step Rand.InRange(10, 50)
 		    For y As Integer = 0 To Buffer.Height - 1 Step Rand.InRange(10, 50)
-		      'If rand.InRange(0, 10) Mod 3 = 0 Then
 		      Buffer.Graphics.ForeColor = RGB(rand.InRange(0, 255), rand.InRange(0, 255), rand.InRange(0, 255))
 		      Buffer.Graphics.PenHeight = rand.InRange(1, 7)
 		      Buffer.Graphics.PenWidth = rand.InRange(1, 3)
 		      Buffer.Graphics.FillRect(x, y, rand.InRange(1, Rand.InRange(1, 5)), rand.InRange(1, Rand.InRange(1, 5)))
-		      'End If
 		    Next
 		  Next
 		  
@@ -76,7 +69,6 @@ Inherits WebImageView
 		      End If
 		    Next
 		  Next
-		  
 		  
 		  Buffer.Graphics.ForeColor = c
 		  
@@ -136,6 +128,7 @@ Inherits WebImageView
 
 	#tag Method, Flags = &h21
 		Private Sub Load()
+		  Const divisionsign = &U00F7
 		  Dim x, y, action As Integer
 		  If rand = Nil Then rand = New Random
 		  rand.RandomizeSeed
@@ -159,13 +152,13 @@ Inherits WebImageView
 		    Answer = x * y
 		    Challenge = Str(x) + " " +  "x" + " " +  Str(y) +  " = ?"
 		  Case 3  //divide
-		    If x Mod y <> 0 Then
+		    If x Mod y <> 0 Then  //Integer Answers only
 		      If x > y Then
 		        For x = x To x*2
 		          If x > 50 Then Exit For x
 		          If x Mod y = 0 Then
 		            Answer = x / y
-		            Challenge = Str(x) + " ÷ " +  Str(y) +  "= ?"
+		            Challenge = Str(x)+ " " +  divisionsign + " " + Str(y) +  "= ?"
 		            Exit For x
 		          End If
 		        Next
@@ -174,7 +167,7 @@ Inherits WebImageView
 		          If y > 50 Then Exit For y
 		          If y Mod x = 0 Then
 		            Answer = y / x
-		            Challenge = Str(y) + " " +  &U00F7 + " " +  Str(x) + " = ?"
+		            Challenge = Str(y) + " " +  divisionsign + " " +  Str(x) + " = ?"
 		            Exit For y
 		          End If
 		        Next
@@ -184,7 +177,7 @@ Inherits WebImageView
 		  End Select
 		  If challenge = "" Then
 		    Answer = 20 / 2
-		    Challenge = Str(20) + " " +  &U00F7 + " " +  Str(2) + " = ?"
+		    Challenge = Str(20) + " " +  divisionsign + " " +  Str(2) + " = ?"
 		  End If
 		  
 		End Sub
@@ -217,7 +210,7 @@ Inherits WebImageView
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event MouseUp()
+		Event MouseUp(X As Integer, Y As Integer, Details As REALbasic.MouseEvent)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
@@ -258,6 +251,10 @@ Inherits WebImageView
 		OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
 		LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
 		IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+		
+		
+		Additionally, if you do use the software I'd love to hear about it! 
+		http://www.boredomsoft.org
 	#tag EndNote
 
 
